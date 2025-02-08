@@ -9,6 +9,8 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import axios from 'axios';
+
 @Component({
   standalone: true,
   selector: 'app-register',
@@ -31,6 +33,7 @@ export class RegisterComponent {
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
+    
   }
 
   onSubmit(): void {
@@ -50,4 +53,22 @@ export class RegisterComponent {
   get password() {
     return this.registerForm.get('password');
   }
+async createPost(data:any){
+  try {
+    const res=await axios.post('http://localhost:5000/user/register',JSON.stringify(data))
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+buttonClick(){
+  this.createPost({
+    name:"",
+    email:"",
+    password:"",
+    role:"general"
+  })
+}
+
 }
