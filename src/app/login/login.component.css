@@ -78,3 +78,15 @@ body {
     outline: none;
   }
   
+
+  .error-message {
+    color: #f11c32;
+    padding: 3px;
+    margin-top: 3px;
+    font-size: 15px; /* Change the font size here */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+  }
+  
+  .error-message strong {
+    font-weight: bold;
+  }

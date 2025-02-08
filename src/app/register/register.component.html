@@ -1,36 +1,32 @@
 <app-navbar></app-navbar>
 <div class="regiter-form-main">
-    <div class="container">
-        <form class="register-form">
-          <h2>Register</h2>
-          
-          <!-- Full Name -->
-          <div class="form-group">
-            <label for="fullName">Full Name</label>
-            <input id="fullName" type="text" class="form-control" placeholder="Enter your full name" required />
-          </div>
-      
-          <!-- Email -->
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input id="email" type="email" class="form-control" placeholder="Enter your email" required />
-          </div>
-      
-          <!-- Password -->
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input id="password" type="password" class="form-control" placeholder="Enter your password" required />
-          </div>
-      
-          <!-- Confirm Password -->
-          <div class="form-group">
-            <label for="confirmPassword">Confirm Password</label>
-            <input id="confirmPassword" type="password" class="form-control" placeholder="Confirm your password" required />
-          </div>
-      
-          <!-- Submit Button -->
-          <button type="submit" class="btn">Register</button>
-        </form>
+  <div class="container">
+    <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <h2>Register</h2>
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" type="text" class="form-control" placeholder="Enter your full name"
+          formControlName="name" />
+          <span class="error-message" *ngIf="name?.invalid && name?.touched">Name is required</span>
+
       </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" class="form-control" placeholder="Enter your email" formControlName="email" />
+        <span *ngIf="email?.invalid && email?.touched" class="error-message">Email is required</span>
+
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" class="form-control" placeholder="Enter your password"
+          formControlName="password" />
+          <span *ngIf="password?.invalid && password?.touched" class="error-message">Password is required</span>
+
+      </div>
+      <div style="display: flex;justify-content: space-between;">
+      <button style="width: 150px;" type="submit" class="btn" [disabled]="registerForm.invalid">Register</button>
+      <button style="width: 150px;"  class="btn" routerLink="/login">Login</button>
+    </div>
+    </form>
+  </div>
 </div>
-  

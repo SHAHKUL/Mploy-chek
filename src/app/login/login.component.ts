@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import {
   FormGroup,
-  FormControl,
   Validators,
   FormBuilder,
-  Form,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
@@ -36,5 +34,12 @@ export class LoginComponent {
     } else {
       console.log('form is invalid');
     }
+  }
+
+  get email(){
+    return this.userForm.get('email')
+  }
+  get password(){
+    return this.userForm.get('password')
   }
 }
