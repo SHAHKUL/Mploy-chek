@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import {
   FormGroup,
   Validators,
@@ -15,7 +15,6 @@ import axios from 'axios';
   standalone: true,
   selector: 'app-register',
   imports: [
-    NavbarComponent,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
@@ -26,19 +25,21 @@ import axios from 'axios';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  message:string=''
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private router: Router) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
+      role:"general"
     });
-    
   }
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      console.log('succes', this.registerForm.value);
+      const formData = this.registerForm.value;
+      this.createPost(formData);
     } else {
       console.log('form is invalid');
     }
@@ -53,22 +54,20 @@ export class RegisterComponent {
   get password() {
     return this.registerForm.get('password');
   }
-async createPost(data:any){
-  try {
-    const res=await axios.post('http://localhost:5000/user/register',JSON.stringify(data))
-    
-  } catch (error) {
-    console.log(error);
-    
+  async createPost(data: any) {
+    try {
+      const res = await axios.post(
+        'http://localhost:5000/user/register',
+        data
+      );
+      alert(res.data.message)
+      this.message=res.data.message
+      if(this.message==='User Registered Successfully'){
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
-buttonClick(){
-  this.createPost({
-    name:"",
-    email:"",
-    password:"",
-    role:"general"
-  })
-}
 
 }

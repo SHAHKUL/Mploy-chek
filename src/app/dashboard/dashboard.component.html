@@ -7,11 +7,7 @@
     <div class="top-bar">
       <div class="title">
         <h1>Welcome to the Dashboard</h1>
-      </div>
-      <div class="user-profile">
-        <img src="https://via.placeholder.com/40" alt="User" />
-        <span>User Name</span>
-      </div>
+      </div> 
     </div>
 
     <!-- Table Section -->
@@ -20,20 +16,33 @@
       <table class="table">
         <thead>
           <tr>
-            <!-- <th>ID</th> -->
+            <th>ID</th>
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th >Action</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <!-- <td>1</td> -->
-          <tr *ngFor="let item of data">
-            <td>{{ item.name }}</td>
-            <td>{{ item.email }}</td>
-            <td>{{ item.role }}</td>
-          </tr>
+            <tr *ngFor="let item of data; let i = index">
+              <td>{{ i + 1 }}</td> <!-- This will display the ID starting from 1 -->
+              <td>{{ item.name }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.role }}</td>
+              <td style="width: 200px;">
+                
+                <span>
+                <button class="btn btn-primary btn" (click)="editItem(item)" style="margin-right: 20px;">
+                  Change
+                </button>
+      
+                <button class="btn btn-danger btn" (click)="deleteItem(item)">
+                  Delete
+                </button>
+              </span>
+              </td>
+            </tr>
         </tbody>
       </table>
     </div>

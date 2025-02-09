@@ -1,16 +1,19 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="javascript:void(0);" routerLink="home">Mploy Chek</a>
+    <a class="navbar-brand" routerLink="/home">Mploy Chek</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
         aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <div *ngIf="role"  class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" routerLink="/">Register</a>
-            </li>
-            <li><a class="nav-link" routerLink="/login">Login</a></li>
-            <li class="nav-item"><a routerLink="/dash" class="nav-link">Dashboard</a></li>
-            <li><a class="nav-link" routerLink="/login">Logout</a></li>
+            <li class="nav-item" *ngIf="role === 'admin'"><a routerLink="/dash" class="nav-link">Dashboard</a></li>
+
+            <li><a class="nav-link" routerLink="/login" (click)="logout()">Logout</a></li>
         </ul>
     </div>
+    <button class="button-33">{{role=='admin'?'Admin':"General"}}</button>
+    <div class="user-profile">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5GJoRJ64Qv4yF1e1CWg3LgtyCs-hG5-_Uiw&s" alt="User" />
+        <span >{{ username }}</span>
+      </div>
 </nav>

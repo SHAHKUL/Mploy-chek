@@ -10,5 +10,14 @@ import { RouterModule } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  username?: string;
+
+  ngOnInit(): void {
+    // Safe check to ensure we're in a browser environment
+    if (typeof window !== 'undefined' && window.localStorage) {
+      this.username = localStorage.getItem('username') || ''; // Retrieve username from localStorage
+     
+    }
+  }
 
 }
