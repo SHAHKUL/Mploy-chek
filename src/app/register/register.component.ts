@@ -14,25 +14,20 @@ import axios from 'axios';
 @Component({
   standalone: true,
   selector: 'app-register',
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    RouterModule,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
   registerForm: FormGroup;
-  message:string=''
+  message: string = '';
 
-  constructor(private fb: FormBuilder,private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      role:"general"
+      role: 'general',
     });
   }
 
@@ -56,18 +51,14 @@ export class RegisterComponent {
   }
   async createPost(data: any) {
     try {
-      const res = await axios.post(
-        'http://localhost:5000/user/register',
-        data
-      );
-      alert(res.data.message)
-      this.message=res.data.message
-      if(this.message==='User Registered Successfully'){
+      const res = await axios.post('http://localhost:5000/user/register', data);
+      alert(res.data.message);
+      this.message = res.data.message;
+      if (this.message === 'User Registered Successfully') {
         this.router.navigate(['/login']);
       }
     } catch (error) {
       console.log(error);
     }
   }
-
 }

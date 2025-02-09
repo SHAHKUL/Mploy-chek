@@ -7,7 +7,7 @@
         <input id="email" type="email" class="form-control" placeholder="Enter your email" formControlName="email" />
         <span *ngIf="email?.invalid && email?.touched" class="error-message">Email is required</span>
       </div>
-      
+
       <div class="form-group">
         <label for="password">Password</label>
         <input id="password" type="password" class="form-control" placeholder="Enter your password"
@@ -23,6 +23,6 @@
         <button style="width: 150px;" class="btn" routerLink="/">Register</button>
       </div>
     </form>
-    
+
   </div>
 </div>
