@@ -1,0 +1,32 @@
+<div class="modal" tabindex="-1" role="dialog" *ngIf="isModalVisible" (click)="closeModal($event)">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Item</h5>
+          <button type="button" class="close" (click)="closeModal($event)" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="itemName">Name</label>
+              <input type="text" class="form-control" id="itemName" [(ngModel)]="selectedItem.name" name="name">
+            </div>
+            <div class="form-group">
+              <label for="itemEmail">Email</label>
+              <input type="email" class="form-control" id="itemEmail" [(ngModel)]="selectedItem.email" name="email">
+            </div>
+            <div class="form-group">
+              <label for="itemRole">Role</label>
+              <input type="text" class="form-control" id="itemRole" [(ngModel)]="selectedItem.role" name="role">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal($event)">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveChanges()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

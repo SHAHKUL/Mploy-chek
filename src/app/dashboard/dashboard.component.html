@@ -1,51 +1,93 @@
-<app-navbar></app-navbar>
-<div class="dashboard-container">
+  <app-navbar></app-navbar>
+  <div class="dashboard-container">
 
-  <!-- Main content -->
-  <div class="main-content">
-    <!-- Top Bar -->
-    <div class="top-bar">
-      <div class="title">
-        <h1>Admin Dashboard</h1>
+    <!-- Main content -->
+    <div class="main-content">
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="title">
+          <h1>Admin Dashboard</h1>
+        </div>
       </div>
+
+      <!-- Table Section -->
+      <div class="table-container">
+        <h2>Recent Activities</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th style="text-align: center;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+            <tr *ngFor="let item of data; let i = index">
+              <td>{{ i + 1 }}</td> <!-- This will display the ID starting from 1 -->
+              <td>{{ item.name }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.role }}</td>
+              <td   >
+                <!-- item.role=='admin' -->
+                <span>
+                  <button *ngIf="item.name === username || role === 'admin'"  class="btn btn-primary btn" (click)="editModalItem(item)"  style="margin-right: 20px;">
+                    Edit
+                  </button> 
+                  
+                  <button class="btn btn-primary btn" (click)="editItem(item)" style="margin-right: 20px;">
+                    Change
+                  </button>
+
+                  <button class="btn btn-danger btn" (click)="deleteItem(item)">
+                    Delete
+                  </button>
+                </span>
+               
+                <div *ngIf="item._id === isModalVisibleId">
+               
+                
+                  <form (ngSubmit)="saveChanges(item)">
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        name="name"
+                        [(ngModel)]="item.name" 
+                      
+                      />
+                    </div>
+                
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        [(ngModel)]="item.email"  
+                       
+                      />
+                    </div>
+                
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" (click)="isModalVisibleId = null">Cancel</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
-
-    <!-- Table Section -->
-    <div class="table-container">
-      <h2>Recent Activities</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th style="text-align: center;">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-          <tr *ngFor="let item of data; let i = index">
-            <td>{{ i + 1 }}</td> <!-- This will display the ID starting from 1 -->
-            <td>{{ item.name }}</td>
-            <td>{{ item.email }}</td>
-            <td>{{ item.role }}</td>
-            <td style="width: 200px;">
-
-              <span>
-                <button class="btn btn-primary btn" (click)="editItem(item)" style="margin-right: 20px;">
-                  Change
-                </button>
-
-                <button class="btn btn-danger btn" (click)="deleteItem(item)">
-                  Delete
-                </button>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
   </div>
-</div>
+
+
+
+  <!-- Conditionally show the edit modal if it's visible -->
+
