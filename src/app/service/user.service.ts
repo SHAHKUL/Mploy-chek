@@ -9,40 +9,7 @@ export class UserService {
   private role: string = '';
 
   constructor() {}
-  private isBrowser(): boolean {
-    return (
-      typeof window !== 'undefined' &&
-      typeof window.localStorage !== 'undefined'
-    );
-  }
 
-  setUsername(name: string): void {
-    this.username = name;
-    if (this.isBrowser()) {
-      localStorage.setItem('username', name); // Only use localStorage in the browser
-    }
-  }
-
-  getUsername(): string {
-    if (this.isBrowser()) {
-      return localStorage.getItem('username') || '';
-    }
-    return this.username;
-  }
-
-  setRole(name: string): void {
-    this.role = name;
-    if (this.isBrowser()) {
-      localStorage.setItem('role', name); // Only use localStorage in the browser
-    }
-  }
-
-  getRole(): string {
-    if (this.isBrowser()) {
-      return localStorage.getItem('role') || '';
-    }
-    return this.role;
-  }
 
   async loginUser(data: any) {
     try {

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterModule } from '@angular/router';
+import { ProfileService } from '../profile.service';
 
 @Component({
   standalone: true,
@@ -10,12 +11,13 @@ import { RouterModule } from '@angular/router';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  username?: string;
+  username?: any;
+  private profileService=inject(ProfileService)
 
   ngOnInit(): void {
-    // Safe check to ensure we're in a browser environment
-    if (typeof window !== 'undefined' && window.localStorage) {
-      this.username = localStorage.getItem('username') || ''; // Retrieve username from localStorage
-    }
+
+    this.profileService.currentProfile.subscribe((cur)=>{
+      this.username=cur.name
+    })
   }
 }

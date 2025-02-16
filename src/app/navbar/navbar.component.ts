@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { CommonModule } from '@angular/common';
+import { ProfileService } from '../profile.service';
 
 @Component({
   standalone: true,
@@ -12,23 +13,24 @@ import { CommonModule } from '@angular/common';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
-  username?: string;
-  role?: string;
-
+  username?: any;
+  role?: any;
+ 
+  private profileService = inject(ProfileService);
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      this.username = localStorage.getItem('username') || ''; // Retrieve username from localStorage
-      this.role = localStorage.getItem('role') || '';
-    }
+
+
+    this.profileService.currentProfile.subscribe((cur) => {
+     
+      this.username=cur.name
+      this.role=cur.role
+    });
   }
 
   logout() {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.removeItem('username'); // Remove the username from localStorage
-      localStorage.removeItem('role');
-    }
+
     this.username = '';
     this.role = '';
   }

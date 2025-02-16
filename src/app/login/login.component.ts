@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { UserService } from '../service/user.service';
+import { ProfileService } from '../profile.service';
 
 @Component({
   standalone: true,
@@ -20,12 +21,20 @@ import { UserService } from '../service/user.service';
   styleUrl: './login.component.css',
   providers: [UserService],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   userForm: FormGroup;
   message: string = '';
   userName: string = '';
   loading: boolean = false; // To manage the loading state
 
+  private profileService=inject(ProfileService)
+
+  ngOnInit(): void {
+    this.profileService.currentProfile.subscribe(profile=>{
+      console.log(profile);
+      
+    })
+  }
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -66,9 +75,9 @@ export class LoginComponent {
       alert(res.message);
 
       if (this.message === 'User Login successfully') {
-        this.userService.setUsername(res.name);
-        this.userService.setRole(res.role);
+     
         this.router.navigate(['/home']);
+        this.profileService.changeProfile(res)
       }
     } catch (error) {
       console.log('Error during login:', error);
